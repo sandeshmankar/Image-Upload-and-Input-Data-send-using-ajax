@@ -1,0 +1,60 @@
+<!--- 
+Developed By Sandesh Mankar
+Iamge  and Input Data Send Using Ajax,Jquery
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+		$(function() {
+
+		  $('form').submit(function() {
+		  
+		    var formData = new FormData($(this)[0]);   
+		    $.ajax({
+		      url: 'include/data.php',
+		      type: 'POST',
+		      data: formData,
+		      cache: false,
+		      contentType: false,
+		      processData: false,
+		       beforeSend: function(data)
+		       {      
+		        document.getElementById("result_data").innerHTML = '';
+		        $("#loading_image").show();
+		        $("#loading_image").html('<img src="img/loader1.gif" /> Loading...');
+		       },
+		       success: function(data){        
+		        $("#loading_image").hide();
+		       $('#result_data').html(data);
+		       }
+		    }).then(function(data) {
+		 
+		    });    
+		    return false;
+		  });
+
+		});
+</script>
+</head>
+<body>
+
+	<div id="loading_image"></div> <!-- Loading image when page not responce-->
+	<div id="result_data"></div> <!-- responce Result Show -->
+
+	<form action="" method="POST">
+	  First name:<br>
+	  <input type="text" name="firstname" value="Mickey">
+	  <br>
+	  Last name:<br>
+	  <input type="text" name="lastname" value="Mouse">
+	  <br><br>
+
+	  <input type="file" name="file">
+	  <input type="submit" id="submit" value="Submit">
+	</form> 
+
+
+</body>
+</html>
